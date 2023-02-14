@@ -4,6 +4,7 @@ package com.atguigu.eduservice.controller;
 import com.atguigu.commonutils.R;
 import com.atguigu.eduservice.entity.vo.CouresVo;
 import com.atguigu.eduservice.service.EduCourseService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,9 @@ import javax.websocket.server.PathParam;
  * @author testjava
  * @since 2023-02-09
  */
+@Api(description = "课程管理")
 @RestController
-@RequestMapping("/eduservice/edu-course")
+@RequestMapping("/eduservice/course")
 @CrossOrigin
 public class EduCourseController {
 
