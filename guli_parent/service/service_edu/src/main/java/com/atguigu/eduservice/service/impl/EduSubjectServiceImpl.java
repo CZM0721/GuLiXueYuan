@@ -57,6 +57,18 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
         return getNode(objects);
     }
 
+    /**
+     * 根据父亲id，查询课程
+     * @param parentId 父亲节点id
+     * @return
+     */
+    @Override
+    public List<EduSubject> getNode(String parentId) {
+        QueryWrapper<EduSubject> eduSubjectQueryWrapper = new QueryWrapper<>();
+        eduSubjectQueryWrapper.eq("parent_id",parentId);
+        return this.baseMapper.selectList(eduSubjectQueryWrapper);
+    }
+
     //获取树的子节点
     public List<SubjectTree> getNode(List<SubjectTree> subjectTrees){
         for (int i = 0; i < subjectTrees.size(); i++) {

@@ -22,4 +22,7 @@ public interface EduSubjectService extends IService<EduSubject> {
 
     //获取课程树
     List<SubjectTree> getTree();
+
+    //获取课程亲节点
+    List<EduSubject> getNode(String parentId);
 }

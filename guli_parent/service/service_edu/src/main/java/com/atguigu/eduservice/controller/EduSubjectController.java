@@ -37,10 +37,17 @@ public class EduSubjectController {
         return R.ok();
     }
 
+    //获取课程分类树
     @GetMapping("/getSubjectTree")
     public R getSubjectTree(){
         List<SubjectTree> subjectTrees = subjectService.getTree();
         return R.ok().data("data",subjectTrees);
+    }
+
+    //根据父亲节点id查询
+    @GetMapping("/getSubjectByParentId")
+    public R getSubjectByParentId(String parentId){
+        return R.ok().data("data",this.subjectService.getNode(parentId));
     }
 
 }
