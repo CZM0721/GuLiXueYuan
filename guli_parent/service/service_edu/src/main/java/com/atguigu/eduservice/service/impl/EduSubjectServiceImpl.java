@@ -2,7 +2,7 @@ package com.atguigu.eduservice.service.impl;
 
 import com.alibaba.excel.EasyExcel;
 import com.atguigu.eduservice.entity.EduSubject;
-import com.atguigu.eduservice.entity.SubjectTree;
+import com.atguigu.eduservice.entity.Tree;
 import com.atguigu.eduservice.entity.excel.SubjectData;
 import com.atguigu.eduservice.listener.SubjectExcelListener;
 import com.atguigu.eduservice.mapper.EduSubjectMapper;
@@ -43,16 +43,16 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
 
     //获取课程分类树
     @Override
-    public List<SubjectTree> getTree() {
+    public List<Tree> getTree() {
         // 获取课程树的一级分类
         QueryWrapper<EduSubject> eduSubjectQueryWrapper = new QueryWrapper<>();
         eduSubjectQueryWrapper.eq("parent_id",'0');
         List<EduSubject> eduSubjects = this.baseMapper.selectList(eduSubjectQueryWrapper);
-        List<SubjectTree> objects = new ArrayList<>();
+        List<Tree> objects = new ArrayList<>();
         for (int i = 0; i < eduSubjects.size(); i++) {
-            SubjectTree subjectTree = new SubjectTree();
-            BeanUtils.copyProperties(eduSubjects.get(i),subjectTree );
-            objects.add(subjectTree);
+            Tree Tree = new Tree();
+            BeanUtils.copyProperties(eduSubjects.get(i),Tree );
+            objects.add(Tree);
         }
         return getNode(objects);
     }
@@ -70,25 +70,25 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
     }
 
     //获取树的子节点
-    public List<SubjectTree> getNode(List<SubjectTree> subjectTrees){
-        for (int i = 0; i < subjectTrees.size(); i++) {
+    public List<Tree> getNode(List<Tree> Trees){
+        for (int i = 0; i < Trees.size(); i++) {
             QueryWrapper<EduSubject> eduSubjectQueryWrapper = new QueryWrapper<>();
-            eduSubjectQueryWrapper.eq("parent_id", subjectTrees.get(i).getId());
+            eduSubjectQueryWrapper.eq("parent_id", Trees.get(i).getId());
             List<EduSubject> nodes = this.baseMapper.selectList(eduSubjectQueryWrapper);
-            List<SubjectTree> objects = new ArrayList<>();
+            List<Tree> objects = new ArrayList<>();
             for (int j = 0; j < nodes.size(); j++) {
-                SubjectTree subjectTree = new SubjectTree();
-                BeanUtils.copyProperties(nodes.get(j),subjectTree);
-                objects.add(subjectTree);
+                Tree Tree = new Tree();
+                BeanUtils.copyProperties(nodes.get(j),Tree);
+                objects.add(Tree);
             }
             if (objects.size() == 0){
-                subjectTrees.get(i).setChildren(objects);
+                Trees.get(i).setChildren(objects);
                 break;
             }else {
-                subjectTrees.get(i).setChildren(objects);
+                Trees.get(i).setChildren(objects);
                 getNode(objects);
             }
         }
-            return subjectTrees;
+            return Trees;
     }
 }

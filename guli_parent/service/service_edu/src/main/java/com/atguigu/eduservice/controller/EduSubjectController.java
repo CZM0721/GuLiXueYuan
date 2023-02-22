@@ -3,7 +3,7 @@ package com.atguigu.eduservice.controller;
 
 import com.atguigu.commonutils.R;
 import com.atguigu.eduservice.entity.EduSubject;
-import com.atguigu.eduservice.entity.SubjectTree;
+import com.atguigu.eduservice.entity.Tree;
 import com.atguigu.eduservice.service.EduSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,10 +38,10 @@ public class EduSubjectController {
     }
 
     //获取课程分类树
-    @GetMapping("/getSubjectTree")
-    public R getSubjectTree(){
-        List<SubjectTree> subjectTrees = subjectService.getTree();
-        return R.ok().data("data",subjectTrees);
+    @GetMapping("/getTree")
+    public R getTree(){
+        List<Tree> Trees = subjectService.getTree();
+        return R.ok().data("data",Trees);
     }
 
     //根据父亲节点id查询

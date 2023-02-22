@@ -1,7 +1,7 @@
 package com.atguigu.eduservice.service;
 
 import com.atguigu.eduservice.entity.EduSubject;
-import com.atguigu.eduservice.entity.SubjectTree;
+import com.atguigu.eduservice.entity.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +21,7 @@ public interface EduSubjectService extends IService<EduSubject> {
     void saveSubject(MultipartFile file,EduSubjectService subjectService);
 
     //获取课程树
-    List<SubjectTree> getTree();
+    List<Tree> getTree();
 
     //获取课程亲节点
     List<EduSubject> getNode(String parentId);

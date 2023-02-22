@@ -10,11 +10,11 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="SubjectTree对象", description="课程分类树")
-public class SubjectTree {
+@ApiModel(value="Tree对象", description="树结构")
+public class Tree<T> {
 
     private String id;
     private String title;
-    private List<SubjectTree> children;
+    private List<T> children;
 
 }
