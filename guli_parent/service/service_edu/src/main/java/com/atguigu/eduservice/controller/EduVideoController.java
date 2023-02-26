@@ -30,9 +30,10 @@ public class EduVideoController {
         return R.error();
     }
 
-    @DeleteMapping("/delVideoById/id")
-    public void delVideoById(@PathVariable("id") String id){
+    @DeleteMapping("/delVideoById/{id}")
+    public R delVideoById(@PathVariable("id") String id){
         boolean b = eduVideoService.removeById(id);
+        return R.ok().data("data",b);
     }
 
 }

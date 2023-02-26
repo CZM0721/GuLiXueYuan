@@ -12,16 +12,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * <p>
- * 课程 服务实现类
- * </p>
- *
- * @author testjava
- * @since 2023-02-09
- */
 @Service
-public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse> implements EduCourseService {
+public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper,EduCourse> implements EduCourseService {
 
     @Autowired
     private EduCourseDescriptionService eduCourseDescriptionService;
@@ -44,8 +36,42 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             eduCourseDescription.setId(eduCourse.getId());
             BeanUtils.copyProperties(couresVo, eduCourseDescription);
             eduCourseDescriptionService.save(eduCourseDescription);
-            return R.ok().data("20001",eduCourse.getId());
+            return R.ok().data("id",eduCourse.getId());
         }
         return R.error().data("20004","保存失败");
     }
+
+    /**
+     * 获取课程以及简介
+     * @param courseId 课程id
+     * @return
+     */
+    @Override
+    public R getCourseInfo(String courseId) {
+        CouresVo couresVo = new CouresVo();
+        EduCourse eduCourse = this.getById(courseId);
+        EduCourseDescription byId = eduCourseDescriptionService.getById(courseId);
+        BeanUtils.copyProperties(eduCourse,couresVo);
+        BeanUtils.copyProperties(byId,couresVo);
+        return R.ok().data("data",couresVo);
+    }
+
+    /**
+     * 修改课程信息
+     * @param couresVo
+     * @return
+     */
+    @Override
+    public R updateCourse(CouresVo couresVo) {
+        EduCourse eduCourse = new EduCourse();
+        EduCourseDescription eduCourseDescription = new EduCourseDescription();
+        eduCourse.setId(couresVo.getCourseId());
+        eduCourseDescription.setId(couresVo.getCourseId());
+        BeanUtils.copyProperties(couresVo,eduCourse);
+        BeanUtils.copyProperties(couresVo,eduCourseDescription);
+        this.updateById(eduCourse);
+        eduCourseDescriptionService.updateById(eduCourseDescription);
+        return R.ok();
+    }
+
 }

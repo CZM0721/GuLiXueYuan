@@ -11,6 +11,9 @@ import java.util.Date;
 @Data
 public class CouresVo {
 
+    @ApiModelProperty(value = "课程ID")
+    private String courseId;
+
     @ApiModelProperty(value = "课程讲师ID")
     private String teacherId;
 

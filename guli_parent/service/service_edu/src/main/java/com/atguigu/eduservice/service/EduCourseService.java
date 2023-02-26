@@ -17,4 +17,8 @@ public interface EduCourseService extends IService<EduCourse> {
 
     R saveCouresInfo(CouresVo couresVo);
 
+    R getCourseInfo(String courseId);
+
+    R updateCourse(CouresVo couresVo);
+
 }

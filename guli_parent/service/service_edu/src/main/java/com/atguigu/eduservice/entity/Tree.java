@@ -1,6 +1,7 @@
 package com.atguigu.eduservice.entity;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,6 +16,7 @@ public class Tree<T> {
 
     private String id;
     private String title;
+    private Integer index;
     private List<T> children;
 
 }

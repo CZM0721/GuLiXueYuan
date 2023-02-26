@@ -7,7 +7,6 @@ import com.atguigu.eduservice.entity.Tree;
 import com.atguigu.eduservice.mapper.EduChapterMapper;
 import com.atguigu.eduservice.service.EduChapterService;
 import com.atguigu.eduservice.service.EduVideoService;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -48,8 +47,9 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
             BeanUtils.copyProperties( eduChapter ,tree);
             // 根据章节id查询章节的小结数
             QueryWrapper<EduVideo> eduVideoQueryWrapper = new QueryWrapper<>();
-            eduChapterQueryWrapper.eq("chapter_id",eduChapter.getId());
+            eduVideoQueryWrapper.eq("chapter_id",eduChapter.getId());
             List<EduVideo> list = eduVideoService.list(eduVideoQueryWrapper);
+            tree.setIndex(0);
             tree.setChildren(list);
             trees.add(tree);
         }
