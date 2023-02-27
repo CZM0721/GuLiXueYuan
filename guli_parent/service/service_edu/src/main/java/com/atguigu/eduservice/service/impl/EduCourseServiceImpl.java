@@ -4,13 +4,18 @@ import com.atguigu.commonutils.R;
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.EduCourseDescription;
 import com.atguigu.eduservice.entity.vo.CouresVo;
+import com.atguigu.eduservice.entity.vo.PublishVo;
 import com.atguigu.eduservice.mapper.EduCourseMapper;
 import com.atguigu.eduservice.service.EduCourseDescriptionService;
 import com.atguigu.eduservice.service.EduCourseService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper,EduCourse> implements EduCourseService {
@@ -72,6 +77,27 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper,EduCourse>
         this.updateById(eduCourse);
         eduCourseDescriptionService.updateById(eduCourseDescription);
         return R.ok();
+    }
+
+    /**
+     * 获取大纲信息
+     * @param courseId
+     * @return
+     */
+    @Override
+    public R getPublishVo(String courseId) {
+        PublishVo publishInfo = this.baseMapper.getPublishInfo(courseId);
+        return R.ok().data("coursePublish",publishInfo);
+    }
+
+    /**
+     * 获取已经发布的课程列表
+     * @return
+     */
+    @Override
+    public R getCourseList(Page page,PublishVo publishVo) {
+        IPage<PublishVo> courseInfo = this.baseMapper.getCourseInfo(page,publishVo);
+        return R.ok().data("data",courseInfo);
     }
 
 }

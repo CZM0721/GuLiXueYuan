@@ -3,6 +3,8 @@ package com.atguigu.eduservice.service;
 import com.atguigu.commonutils.R;
 import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.vo.CouresVo;
+import com.atguigu.eduservice.entity.vo.PublishVo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -20,5 +22,9 @@ public interface EduCourseService extends IService<EduCourse> {
     R getCourseInfo(String courseId);
 
     R updateCourse(CouresVo couresVo);
+
+    R getPublishVo(String courseId);
+
+    R getCourseList(Page page, PublishVo publishVo);
 
 }
